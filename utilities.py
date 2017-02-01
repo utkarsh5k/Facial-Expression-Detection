@@ -26,3 +26,15 @@ def getImage():
     d = int(np.sqrt(D))
     X = X.reshape(N, 1, d, d)
     return X, Y
+
+def labelCodes():
+    labels =  {
+                0: 'Angry',
+                1: 'Disgust',
+                2: 'Fear',
+                3: 'Happy',
+                4: 'Sad',
+                5: 'Surprise',
+                6: 'Neutral',
+                }
+    return labels

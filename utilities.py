@@ -107,3 +107,20 @@ def labelCodes():
                 6: 'Neutral',
                 }
     return labels
+
+def crossValidation(model, X, Y, K=5):
+    #split data into K parts
+    X, Y = np.shuffle(X, Y)
+    sz = len(Y) / K
+    errors = []
+    for k in xrange(K):
+        x_train = np.concatenate([ X[:k*sz, :], X[(k*sz + sz):, :] ])
+        y_train = np.concatenate([ Y[:k*sz], Y[(k*sz + sz):] ])
+        x_test = X[k*sz:(k*sz + sz), :]
+        y_test = Y[k*sz:(k*sz + sz)]
+
+        model.fit(x_train, y_train)
+        err = model.score(x_test, y_test)
+        errors.append(err)
+    #print "errors:", errors
+    return np.mean(errors)
